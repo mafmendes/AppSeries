@@ -4,18 +4,20 @@
 
 import UIKit
 import Foundation
-
+#warning("Alguns filmes ficam sobrepostos uns em cima dos outros -> ver cena de grouped se está bem")
 class SearchResultsViewController: UIViewController {
     public var movies: [Movie] = [Movie]()
     weak var delegate: SearchResultsViewControllerDelegate?
     private var viewModel: SearchResultsViewModel = SearchResultsViewModel()
+    #warning("Why not private/lazy vars?")
     public let searchResultsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
+        layout.itemSize = CGSize(width: SearchResultsSizes.collectionViewWidth,
+                                 height: SearchResultsSizes.collectionViewHeight)
         layout.minimumInteritemSpacing = 0
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: MovieListConstants.cellIdentifier)
         return collectionView
     }()
     public let noResultsLabel: UILabel = {
@@ -69,12 +71,12 @@ class SearchResultsViewController: UIViewController {
 
 extension SearchResultsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        movies.count
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: cellIdentifier,
+            withReuseIdentifier: MovieListConstants.cellIdentifier,
             for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }

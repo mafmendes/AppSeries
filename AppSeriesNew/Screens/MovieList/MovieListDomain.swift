@@ -17,9 +17,14 @@ enum Sections: Int {
     case inTheaters = 2
     case commingSoon = 3
 }
+enum MovieListConstants {
+    static var sectionTitles: [String] {  ["Most Popular", "Top 250 Movies", "In theaters", "Comming Soon"]}
+    static var tableIdentifier = "CollectionViewTableViewCell"
+    static var cellIdentifier = "CollectionViewCell"
+}
 
-let sectionTitles: [String] = ["Most Popular", "Top 250 Movies", "In theaters", "Comming Soon"]
+enum StorageKeys: String {
 
-let tableIdentifier = "CollectionViewTableViewCell"
+    case searchBarStorageKey = "RecentSearch"
 
-let cellIdentifier = "CollectionViewCell"
+}

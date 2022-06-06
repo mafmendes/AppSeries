@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
-
-final class MovieListViewModel {
+#warning("fazer a cena dos use cases para ter menos codigo no view Model")
+class MovieListViewModel {
+#warning("the user dont know there was an error. TIRAR O PRINT ERROR")
     func configureRows(indexPath: IndexPath, cell: TableViewCell) {
         switch indexPath.section {
         case Sections.mostPopular.rawValue:
@@ -48,11 +49,12 @@ final class MovieListViewModel {
                 }
             }
         default:
-            UITableViewCell()
+            break
         }
     }
+#warning("the user dont know there was an error. TIRAR PRINT ERROR")
     func reload(self: SearchResultsViewControllerDelegate,
-                searchBar: UISearchBar, searchController: UISearchController, defaults: UserDefaults) {
+                searchBar: UISearchBar, searchController: UISearchController) {
         guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
             return
         }
@@ -69,7 +71,7 @@ final class MovieListViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let movie):
-                    defaults.set(searchBar.text, forKey: "RecentSearch")
+                    ConfigureDefaults.defaults = searchBar.text ?? ""
                     resultsController.delegate = self
                     resultsController.movies = movie
                     resultsController.searchResultsCollectionView.reloadData()
@@ -80,6 +82,7 @@ final class MovieListViewModel {
                         resultsController.noResultsLabel.text = ""
                     }
                 case .failure(let error):
+                    resultsController.activityIndicator.stopAnimating()
                     print(error.localizedDescription)
                 }
             }

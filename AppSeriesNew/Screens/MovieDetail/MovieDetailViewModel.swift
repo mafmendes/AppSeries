@@ -7,8 +7,8 @@
 
 import Foundation
 import UIKit
-
-final class MovieDetailViewModel {
+#warning("too much logic for one place only. mvvm problens")
+class MovieDetailViewModel {
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
                                                      attributes: [NSAttributedString.Key.font: font])
@@ -18,6 +18,7 @@ final class MovieDetailViewModel {
         attributedString.addAttributes(boldFontAttribute, range: range)
         return attributedString
     }
+    #warning("Mudar os parametros desta função para 2 -> Model e Array")
     func configureMovieDetail(
         model: MovieDetail,
         posterImageView: UIImageView,

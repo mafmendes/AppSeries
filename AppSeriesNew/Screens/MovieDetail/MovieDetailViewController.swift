@@ -9,46 +9,47 @@ import Foundation
 import UIKit
 
 class MovieDetailViewController: UIViewController {
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let scrollStackViewContainer: UIStackView = {
+    private lazy var scrollStackViewContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
         return label
     }()
-    private let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
-    private let ratingLabel: UILabel = {
+    private lazy var ratingLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
-    private let actorsLabel: UILabel = {
+    private lazy var actorsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
-    private let downloadButton: UIButton = {
+#warning("METER BOTAO A MANDAR ALERTA")
+    private lazy var downloadButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .red
@@ -58,7 +59,7 @@ class MovieDetailViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-    private let posterImageView: UIImageView = {
+    private lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true

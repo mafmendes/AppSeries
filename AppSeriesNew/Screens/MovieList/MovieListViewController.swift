@@ -7,22 +7,21 @@
 
 import Foundation
 import UIKit
-
+#warning("ver espaços entre filmes não iguais para todos")
 class MovieListViewController: UIViewController {
-
-    private let moviesTable: UITableView = {
+    #warning("meter registos e etcs de cada lazy var em funções de setup ou wtv ->> EM TODOS OS FICHEIROS VCONTROLLER")
+    private lazy var moviesTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(TableViewCell.self, forCellReuseIdentifier: tableIdentifier)
+        table.register(TableViewCell.self, forCellReuseIdentifier: MovieListConstants.tableIdentifier)
         return table
     }()
-    private let searchController: UISearchController = {
+    private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
         controller.searchBar.placeholder = "Search for a movie"
         controller.searchBar.searchBarStyle = .minimal
         return controller
     }()
     private var didTapDeleteKey = false
-    private let defaults = UserDefaults.standard
     private let viewModel: MovieListViewModel = MovieListViewModel()
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +46,7 @@ class MovieListViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.definesPresentationContext = true
         searchController.searchBar.delegate = self
-        searchController.searchBar.text = defaults.string(forKey: "RecentSearch")
+        searchController.searchBar.text = ConfigureDefaults.defaults
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,14 +63,14 @@ class MovieListViewController: UIViewController {
 
 extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionTitles.count
+        return MovieListConstants.sectionTitles.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: tableIdentifier, for: indexPath) as? TableViewCell else {
+            withIdentifier: MovieListConstants.tableIdentifier, for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
         cell.delegate = self
@@ -79,10 +78,11 @@ extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        #warning("Value is too hardcoded, maybe change it")
         return 200
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitles[section]
+        MovieListConstants.sectionTitles[section]
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
@@ -119,7 +119,7 @@ extension MovieListViewController: UISearchResultsUpdating, SearchResultsViewCon
     }
 
     @objc func reload(_ searchBar: UISearchBar) {
-        viewModel.reload(self: self, searchBar: searchBar, searchController: searchController, defaults: defaults)
+        viewModel.reload(self: self, searchBar: searchBar, searchController: searchController)
     }
     func updateSearchResults(for searchController: UISearchController) {
     }

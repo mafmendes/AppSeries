@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-
+#warning("Ver se as variaveis publicas precisam mesmo de ser publicas :D")
+#warning("Perguntar tarefas a fazer")
 class MainViewController: UIViewController {
 
     override func viewDidLoad() {

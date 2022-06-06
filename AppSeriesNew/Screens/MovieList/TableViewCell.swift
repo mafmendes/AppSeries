@@ -16,7 +16,7 @@ class TableViewCell: UITableViewCell {
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: MovieListConstants.cellIdentifier)
         return collectionView
     }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,7 +46,7 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListConstants.cellIdentifier,
                                                             for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
@@ -57,7 +57,7 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moviesInformation.count
+        moviesInformation.count
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -67,16 +67,16 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let moviesInfo = moviesInformation[indexPath.row]
-        guard let movieName = moviesInfo.fullTitle ?? moviesInfo.fullTitle ?? Optional(""),
+        guard let movieName = moviesInfo.fullTitle ?? moviesInfo.fullTitle,
                 let movieImage = moviesInfo.image ?? moviesInfo.image,
                 let movieImDBRating = moviesInfo.imDbRating ?? Optional(""),
                 let movieMetaCriticRating = moviesInfo.metacriticRating ?? Optional(""),
                 let movieDescription = moviesInfo.plot ?? Optional(""),
-                let movieActors = moviesInfo.crew ?? moviesInfo.stars ?? Optional("")
+                let movieActors = moviesInfo.crew ?? moviesInfo.stars
         else {
             return
         }
-        let viewModel = MovieDetail(fullTitle: movieName, title: "",
+        let viewModel = MovieDetail(fullTitle: movieName, title: movieName,
                                     imageView: movieImage,
                                     description: movieDescription,
                                     imDbRating: movieImDBRating,

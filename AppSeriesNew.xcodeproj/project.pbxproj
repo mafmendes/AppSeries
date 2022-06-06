@@ -30,6 +30,7 @@
 		B624F1BB284A575B007D3A9E /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624F1BA284A575B007D3A9E /* MovieDetailViewModel.swift */; };
 		B624F1BD284A5A4A007D3A9E /* SearchResultsDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624F1BC284A5A4A007D3A9E /* SearchResultsDomain.swift */; };
 		B624F1BF284A5A59007D3A9E /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624F1BE284A5A59007D3A9E /* SearchResultsViewModel.swift */; };
+		B624F1C3284E1EBA007D3A9E /* ConfigureDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624F1C2284E1EBA007D3A9E /* ConfigureDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B624F1BA284A575B007D3A9E /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 		B624F1BC284A5A4A007D3A9E /* SearchResultsDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsDomain.swift; sourceTree = "<group>"; };
 		B624F1BE284A5A59007D3A9E /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
+		B624F1C2284E1EBA007D3A9E /* ConfigureDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		B624F1A5284A28F8007D3A9E /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
+				B624F1C1284E1EA6007D3A9E /* MovieListAux */,
 				B624F1AA284A2D29007D3A9E /* MovieListViewController.swift */,
 				B624F1AC284A2D3A007D3A9E /* MovieListDomain.swift */,
 				B624F1AE284A2DB0007D3A9E /* MovieListViewModel.swift */,
@@ -178,6 +181,14 @@
 				B624F1BE284A5A59007D3A9E /* SearchResultsViewModel.swift */,
 			);
 			path = MovieSearchResults;
+			sourceTree = "<group>";
+		};
+		B624F1C1284E1EA6007D3A9E /* MovieListAux */ = {
+			isa = PBXGroup;
+			children = (
+				B624F1C2284E1EBA007D3A9E /* ConfigureDefaults.swift */,
+			);
+			path = MovieListAux;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +304,7 @@
 				B624F189284A1041007D3A9E /* MainViewController.swift in Sources */,
 				B624F195284A106A007D3A9E /* Movie.swift in Sources */,
 				B624F191284A105B007D3A9E /* SceneDelegate.swift in Sources */,
+				B624F1C3284E1EBA007D3A9E /* ConfigureDefaults.swift in Sources */,
 				B624F197284A1071007D3A9E /* MovieDetail.swift in Sources */,
 				B624F1AB284A2D29007D3A9E /* MovieListViewController.swift in Sources */,
 				B624F1B9284A574A007D3A9E /* MovieDetailDomain.swift in Sources */,

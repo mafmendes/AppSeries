@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class SearchResultsViewModel {
+class SearchResultsViewModel {
     func didSelectItem(movies: [Movie], delegate: SearchResultsViewControllerDelegate?, indexPath: IndexPath) {
         let moviesInfo = movies[indexPath.row]
-        guard let movieName = moviesInfo.fullTitle ?? moviesInfo.title ?? Optional(""),
+        guard let movieName = moviesInfo.fullTitle ?? moviesInfo.title,
                 let movieImage = moviesInfo.image ?? moviesInfo.image,
                 let movieDescription = moviesInfo.description ?? Optional(""),
                 let movieActors = moviesInfo.crew ?? moviesInfo.stars ?? Optional("")
@@ -18,7 +18,7 @@ final class SearchResultsViewModel {
             return
         }
         let viewModel = MovieDetail(fullTitle: movieName,
-                                    title: "",
+                                    title: movieName,
                                     imageView: movieImage,
                                     description: movieDescription,
                                     imDbRating: "",
