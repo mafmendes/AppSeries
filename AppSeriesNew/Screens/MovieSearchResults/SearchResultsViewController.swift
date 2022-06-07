@@ -9,23 +9,11 @@ class SearchResultsViewController: UIViewController {
     public var movies: [Movie] = [Movie]()
     weak var delegate: SearchResultsViewControllerDelegate?
     private var viewModel: SearchResultsViewModel = SearchResultsViewModel()
-    #warning("Why not private/lazy vars?")
-    public let searchResultsCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: SearchResultsSizes.collectionViewWidth,
-                                 height: SearchResultsSizes.collectionViewHeight)
-        layout.minimumInteritemSpacing = 0
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: MovieListConstants.cellIdentifier)
-        return collectionView
+    public lazy var searchResultsCollectionView: UICollectionView = {
+        UICollectionView()
     }()
-    public let noResultsLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.numberOfLines = 0
-        return label
+    public lazy var noResultsLabel: UILabel = {
+        UILabel()
     }()
     var activityIndicator = UIActivityIndicatorView(style: .large)
     init() {
@@ -37,18 +25,29 @@ class SearchResultsViewController: UIViewController {
     }
     private func setUp() {
         setUpCollectionView()
+        setUpLabel()
         view.addSubview(searchResultsCollectionView)
         view.addSubview(noResultsLabel)
         view.addSubview(activityIndicator)
         configureConstraints()
     }
     private func setUpCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: SearchResultsSizes.collectionViewWidth,
+                                 height: SearchResultsSizes.collectionViewHeight)
+        layout.minimumInteritemSpacing = 0
+        searchResultsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        searchResultsCollectionView.register(CollectionViewCell.self,
+                                             forCellWithReuseIdentifier: MovieListConstants.cellIdentifier)
         searchResultsCollectionView.delegate = self
         searchResultsCollectionView.dataSource = self
     }
+    private func setUpLabel() {
+        noResultsLabel.font = .systemFont(ofSize: 22, weight: .bold)
+        noResultsLabel.numberOfLines = 0
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .systemBackground
         activityIndicator.color = .systemGray
     }
@@ -57,6 +56,7 @@ class SearchResultsViewController: UIViewController {
         searchResultsCollectionView.frame = view.bounds
     }
     func configureConstraints() {
+        noResultsLabel.translatesAutoresizingMaskIntoConstraints = false
         let noResultsLabelConstraints = [
                     noResultsLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
                     noResultsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

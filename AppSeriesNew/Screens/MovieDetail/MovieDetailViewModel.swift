@@ -79,3 +79,20 @@ class MovieDetailViewModel {
         }
     }
 }
+
+extension MovieDetailViewController {
+    @objc func popupAlert(_ sender: UIButton!) {
+            let alert = UIAlertController(title: "Do you want to download this movie",
+                                        message: "",
+                                        preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+                }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+                }))
+            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            if let navigationController = rootViewController as? UINavigationController {
+                rootViewController = navigationController.viewControllers.first
+            }
+            rootViewController?.present(alert, animated: true, completion: nil)
+        }
+}
