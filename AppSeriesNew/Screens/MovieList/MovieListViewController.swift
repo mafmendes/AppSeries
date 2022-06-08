@@ -9,17 +9,11 @@ import Foundation
 import UIKit
 #warning("ver espaços entre filmes não iguais para todos")
 class MovieListViewController: UIViewController {
-    #warning("meter registos e etcs de cada lazy var em funções de setup ou wtv ->> EM TODOS OS FICHEIROS VCONTROLLER")
     private lazy var moviesTable: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
-        table.register(TableViewCell.self, forCellReuseIdentifier: MovieListConstants.tableIdentifier)
-        return table
+        UITableView(frame: .zero, style: .grouped)
     }()
     private lazy var searchController: UISearchController = {
-        let controller = UISearchController(searchResultsController: SearchResultsViewController())
-        controller.searchBar.placeholder = "Search for a movie"
-        controller.searchBar.searchBarStyle = .minimal
-        return controller
+        UISearchController(searchResultsController: SearchResultsViewController())
     }()
     private var didTapDeleteKey = false
     private let viewModel: MovieListViewModel = MovieListViewModel()
@@ -36,12 +30,14 @@ class MovieListViewController: UIViewController {
         setUpSearchController()
     }
     private func setUpTableView() {
+        moviesTable.register(TableViewCell.self, forCellReuseIdentifier: MovieListConstants.tableIdentifier)
         moviesTable.delegate = self
         moviesTable.dataSource = self
     }
     private func setUpSearchController() {
+        searchController.searchBar.placeholder = "Search for a movie"
+        searchController.searchBar.searchBarStyle = .minimal
         searchController.searchResultsUpdater = self
-
         self.navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.definesPresentationContext = true

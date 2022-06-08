@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 struct Constants {
-    static let apiKey = "k_h19su5vw"// "k_o4g32is7"//"k_k5beia58" //"k_rxtomrn7" // k_h19su5vw
+    static let apiKey = "k_k5beia58"// "k_o4g32is7"//"k_k5beia58" //"k_rxtomrn7" // k_h19su5vw
     static let baseURL = "https://imdb-api.com/API"
 }
 
@@ -37,7 +37,6 @@ class APICaller {
                 completion(.success(results.items!))
             } catch {
                 completion(.failure(APIError.failedToGetData))
-                // throw String(describing: error)
                 // print(String(describing: error))
             }
         }

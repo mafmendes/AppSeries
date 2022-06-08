@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-#warning("too much logic for one place only. mvvm problens")
+import AlamofireImage
 class MovieDetailViewModel {
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
@@ -18,7 +18,6 @@ class MovieDetailViewModel {
         attributedString.addAttributes(boldFontAttribute, range: range)
         return attributedString
     }
-    #warning("Mudar os parametros desta função para 2 -> Model e Array")
     func configureMovieDetail(
         model: MovieDetail,
         posterImageView: UIImageView,
@@ -26,8 +25,18 @@ class MovieDetailViewModel {
         descriptionLabel: UILabel,
         ratingLabel: UILabel,
         actorsLabel: UILabel) {
-        if model.imageView.contains("m.media-amazon") {
-            if let index = (model.imageView.range(of: "UX")?.lowerBound) {
+            print(model.imageView)
+        if model.imageView.contains("m.media-amazon") { // if url has this string, which will mean it will have bad quality
+            if let index = (model.imageView.range(of: "UX")?.lowerBound) { // So after this 2 caracthers
+              let beforeEqualsTo = String(model.imageView.prefix(upTo: index))
+              let newString = "SY1000_CR0,0,675,1000_AL_.jpg" // replace it with this new string, which will give the image a high quality
+                var newModel = beforeEqualsTo
+                newModel.append(newString)
+                guard let url = URL(string: newModel) else {
+                    return
+                }
+                posterImageView.sd_setImage(with: url, placeholderImage: nil)
+            } else if let index = (model.imageView.range(of: "UY")?.lowerBound) { // comments above is the same for the following code
               let beforeEqualsTo = String(model.imageView.prefix(upTo: index))
               let newString = "SY1000_CR0,0,675,1000_AL_.jpg"
                 var newModel = beforeEqualsTo
@@ -36,23 +45,13 @@ class MovieDetailViewModel {
                     return
                 }
 
-                posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
-            } else if let index = (model.imageView.range(of: "UY")?.lowerBound) {
-              let beforeEqualsTo = String(model.imageView.prefix(upTo: index))
-              let newString = "SY1000_CR0,0,675,1000_AL_.jpg"
-                var newModel = beforeEqualsTo
-                newModel.append(newString)
-                guard let url = URL(string: newModel) else {
-                    return
-                }
-
-                posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
+                posterImageView.sd_setImage(with: url, placeholderImage: nil)
             }
         } else {
             guard let url = URL(string: model.imageView) else {
                 return
             }
-            posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
+            posterImageView.sd_setImage(with: url, placeholderImage: nil)
         }
         titleLabel.text = model.fullTitle
         if model.imDbRating.isEmpty && model.metacriticRating.isEmpty {

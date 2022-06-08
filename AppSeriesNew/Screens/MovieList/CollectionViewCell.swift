@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import Alamofire
-import AlamofireImage
+import SDWebImage
 
 class CollectionViewCell: UICollectionViewCell {
     private let posterImageView: UIImageView = {
@@ -40,7 +40,7 @@ class CollectionViewCell: UICollectionViewCell {
               guard let url = URL(string: newModel) else {
                     return
                 }
-                posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
+                configureImage(url: url)
             } else if let index = (model.range(of: "UY")?.lowerBound) {
               let beforeEqualsTo = String(model.prefix(upTo: index))
                 let newString = "SY1000_CR0,0,675,1000_AL_.jpg"
@@ -49,13 +49,22 @@ class CollectionViewCell: UICollectionViewCell {
                 guard let url = URL(string: newModel) else {
                     return
                 }
-                posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
+                configureImage(url: url)
             }
         } else {
             guard let url = URL(string: model) else {
                 return
             }
-            posterImageView.af.setImage(withURL: url, placeholderImage: UIImage(systemName: "goforward"))
+            configureImage(url: url)
         }
+    }
+    func configureImage(url: URL) {
+        posterImageView.sd_setImage(with: url, placeholderImage: nil)
+//        posterImageView.sd_setImage(with: url, placeholderImage: UIImage(systemName: "goforward"),
+//            options: [.avoidAutoSetImage], completed: { image, _, _, _ in
+//                if image != nil {
+//                    self.posterImageView.image = image!.trim()
+//                }
+//        })
     }
 }

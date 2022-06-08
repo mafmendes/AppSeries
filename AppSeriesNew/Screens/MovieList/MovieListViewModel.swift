@@ -7,52 +7,37 @@
 
 import Foundation
 import UIKit
-#warning("fazer a cena dos use cases para ter menos codigo no view Model")
 class MovieListViewModel {
-#warning("the user dont know there was an error. TIRAR O PRINT ERROR")
+    func configureCells(result: Result<[Movie], Error>, cell: TableViewCell) {
+        switch result {
+        case .success(let moviesInfo):
+                cell.configure(with: moviesInfo)
+        case .failure:
+            break
+        }
+    }
     func configureRows(indexPath: IndexPath, cell: TableViewCell) {
         switch indexPath.section {
         case Sections.mostPopular.rawValue:
-            APICaller.shared.getMostPopularMovies { result in
-                switch result {
-                case .success(let moviesInfo):
-                    cell.configure(with: moviesInfo)
-                case .failure(let error):
-                    print(error)
-                }
+            APICaller.shared.getMostPopularMovies { [self] result in
+                configureCells(result: result, cell: cell)
             }
         case Sections.top250Movies.rawValue:
-            APICaller.shared.getTop250Movies { result in
-                switch result {
-                case .success(let moviesInfo):
-                    cell.configure(with: moviesInfo)
-                case .failure(let error):
-                    print(error)
-                }
+            APICaller.shared.getTop250Movies { [self] result in
+                configureCells(result: result, cell: cell)
             }
         case Sections.inTheaters.rawValue:
-            APICaller.shared.getInTheaters { result in
-                switch result {
-                case .success(let moviesInfo):
-                    cell.configure(with: moviesInfo)
-                case .failure(let error):
-                    print(error)
-                }
+            APICaller.shared.getInTheaters { [self] result in
+                configureCells(result: result, cell: cell)
             }
         case Sections.commingSoon.rawValue:
-            APICaller.shared.getCommingSoonMovies { result in
-                switch result {
-                case .success(let moviesInfo):
-                    cell.configure(with: moviesInfo)
-                case .failure(let error):
-                    print(error)
-                }
+            APICaller.shared.getCommingSoonMovies { [self] result in
+                configureCells(result: result, cell: cell)
             }
         default:
             break
         }
     }
-#warning("the user dont know there was an error. TIRAR PRINT ERROR")
     func reload(self: SearchResultsViewControllerDelegate,
                 searchBar: UISearchBar, searchController: UISearchController) {
         guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
@@ -81,9 +66,9 @@ class MovieListViewModel {
                     } else {
                         resultsController.noResultsLabel.text = ""
                     }
-                case .failure(let error):
+                case .failure(_):
                     resultsController.activityIndicator.stopAnimating()
-                    print(error.localizedDescription)
+                    // print(error.localizedDescription)
                 }
             }
         }
