@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-#warning("ver espaços entre filmes não iguais para todos")
+
 class MovieListViewController: UIViewController {
     private lazy var moviesTable: UITableView = {
         UITableView(frame: .zero, style: .grouped)

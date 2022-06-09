@@ -13,6 +13,6 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
 }
 
 enum SearchResultsSizes {
-    static var collectionViewWidth: CGFloat { UIScreen.main.bounds.width / 3 - 9 }
+    static var collectionViewWidth: CGFloat { 100 }
     static var collectionViewHeight: CGFloat { 200 }
 }

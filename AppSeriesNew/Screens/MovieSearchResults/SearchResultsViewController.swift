@@ -4,7 +4,7 @@
 
 import UIKit
 import Foundation
-#warning("Alguns filmes ficam sobrepostos uns em cima dos outros -> ver cena de grouped se está bem")
+
 class SearchResultsViewController: UIViewController {
     public var movies: [Movie] = [Movie]()
     weak var delegate: SearchResultsViewControllerDelegate?
@@ -88,5 +88,29 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         viewModel.didSelectItem(movies: movies, delegate: delegate, indexPath: indexPath)
+    }
+    func collectionView(collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
+    func collectionView(collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+
+        let totalHeight: CGFloat = (self.view.frame.width / 3)
+        let totalWidth: CGFloat = (self.view.frame.width / 3)
+
+        return CGSize(width: ceil(totalWidth), height: ceil(totalHeight))
     }
 }

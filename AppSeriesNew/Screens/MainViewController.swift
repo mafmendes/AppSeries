@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-#warning("Perguntar tarefas a fazer")
+
 class MainViewController: UIViewController {
 
     override func viewDidLoad() {

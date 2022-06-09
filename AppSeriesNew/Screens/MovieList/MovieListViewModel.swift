@@ -66,7 +66,7 @@ class MovieListViewModel {
                     } else {
                         resultsController.noResultsLabel.text = ""
                     }
-                case .failure(_):
+                case .failure:
                     resultsController.activityIndicator.stopAnimating()
                     // print(error.localizedDescription)
                 }

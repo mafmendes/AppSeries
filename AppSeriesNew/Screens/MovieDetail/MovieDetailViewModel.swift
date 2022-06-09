@@ -25,18 +25,21 @@ class MovieDetailViewModel {
         descriptionLabel: UILabel,
         ratingLabel: UILabel,
         actorsLabel: UILabel) {
-            print(model.imageView)
-        if model.imageView.contains("m.media-amazon") { // if url has this string, which will mean it will have bad quality
-            if let index = (model.imageView.range(of: "UX")?.lowerBound) { // So after this 2 caracthers
+            // if url has this string, which will mean it will have bad quality
+            if model.imageView.contains("m.media-amazon") {
+            // So after this 2 caracthers
+            if let index = (model.imageView.range(of: "UX")?.lowerBound) {
               let beforeEqualsTo = String(model.imageView.prefix(upTo: index))
-              let newString = "SY1000_CR0,0,675,1000_AL_.jpg" // replace it with this new string, which will give the image a high quality
+              // replace it with this new string, which will give the image a high quality
+              let newString = "SY1000_CR0,0,675,1000_AL_.jpg"
                 var newModel = beforeEqualsTo
                 newModel.append(newString)
                 guard let url = URL(string: newModel) else {
                     return
                 }
                 posterImageView.sd_setImage(with: url, placeholderImage: nil)
-            } else if let index = (model.imageView.range(of: "UY")?.lowerBound) { // comments above is the same for the following code
+            } else if let index = (model.imageView.range(of: "UY")?.lowerBound) {
+              // comments above is the same for the following code
               let beforeEqualsTo = String(model.imageView.prefix(upTo: index))
               let newString = "SY1000_CR0,0,675,1000_AL_.jpg"
                 var newModel = beforeEqualsTo
